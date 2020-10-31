@@ -1,0 +1,22 @@
+.card {
+    background-color: #369457;
+    padding: 20px 50px;
+    border-radius: 1rem;
+    margin: 5% 5% 5% 5%;
+    padding: 2% 5% 5% 5%;
+    width: 80%;
+    color: white;
+    text-align: left;
+    display: block;
+}
+.smallCard {
+    background-color: #369457;
+    padding: 20px 50px;
+    border-radius: 1rem;
+    margin: 5% 5% 5% 5%;
+    padding: 2% 5% 5% 5%;
+    height: fit-content;
+    color: white;
+    text-align: left;
+    display: block;
+}

@@ -8,6 +8,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import { ThemeProvider } from '../../../theme/theme'
 import Brightness4 from '@material-ui/icons/Brightness4'
 import Brightness7 from '@material-ui/icons/Brightness7'
+import Asynchronous from '../../Search/AsynchronousSearch'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -18,6 +19,8 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         flexGrow: 1,
+        marginLeft: '2%',
+        textAlign: 'left',
     },
     style: {
         background: '#1F6032',
@@ -65,6 +68,8 @@ export const NavBar = (props) => {
                                 alt="logo"
                             />
                         </Typography>
+                        {/*<Search />*/}
+                        <Asynchronous />
                         <IconButton
                             edge="end"
                             aria-label="alternar tema claro/oscuro"

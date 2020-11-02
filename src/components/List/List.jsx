@@ -1,20 +1,17 @@
 import React from 'react'
 import './List.css'
 import PropTypes from 'prop-types'
-import { withRouter, useHistory, Link } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import { Header } from './Header/Header'
 
 export const List = (props) => {
-    const history = useHistory()
     const { id, name, description, type } = props
-    console.log('type', type + id)
-    const getDetails = () => type && history.push(type + id)
     return (
         <div className="list">
             <Link
                 to={{
-                    pathname: '/killer',
-                    search: `?name=${name}`,
+                    pathname: id ? type + id : type,
+                    search: !id && name && `?name=${name}`,
                     state: {
                         name: name,
                     },
@@ -26,7 +23,7 @@ export const List = (props) => {
                     color: 'white',
                 }}
             >
-                <Header title={`${name} ${description}`} />
+                <Header title={`${name} ${description || ''}`} />
             </Link>
         </div>
     )
@@ -34,6 +31,7 @@ export const List = (props) => {
 
 List.propTypes = {
     name: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
 }
 
 export default withRouter(List)

@@ -1,7 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-
-import { Subtitle } from '../../../Titles/Subtitle/Subtitle'
 import { Title } from '../../../Titles/Title/Title'
 
 export const EpisodeDetails = (props) => {

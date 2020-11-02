@@ -1,5 +1,4 @@
 import React from 'react'
-import { animations } from 'react-animation'
 import { ImagePresentation } from './ImagePresentation'
 
 export const ImagesPresentation = () => {
@@ -24,11 +23,37 @@ export const ImagesPresentation = () => {
     ]
 
     return (
-        <div style={{ margin: '12%', display: 'inline-flex', width: '100%' }}>
-            {cards &&
-                cards.map((card, index) => {
-                    return <ImagePresentation card={card} key={index} />
-                })}
-        </div>
+        <>
+            <div
+                style={{
+                    backgroundColor: '#032202',
+                    margin: '4% 6% 0% 10%',
+                    borderRadius: '1rem',
+                }}
+            >
+                <img
+                    src={process.env.PUBLIC_URL + '/logo.png'}
+                    style={{
+                        display: 'inline-flex',
+                        justifyContent: 'center',
+                        marginTop: '10px',
+                    }}
+                    width={250}
+                    height={150}
+                    alt="logo"
+                />
+            </div>
+            <div
+                style={{
+                    margin: '5% 10% 10% 5%',
+                    display: 'inline-flex',
+                }}
+            >
+                {cards &&
+                    cards.map((card, index) => {
+                        return <ImagePresentation card={card} key={index} />
+                    })}
+            </div>
+        </>
     )
 }

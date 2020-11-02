@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import '@trendmicro/react-sidenav/dist/react-sidenav.css'
 import SideNav, { NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav'
 import { Route, Switch } from 'react-router-dom'
@@ -17,6 +17,9 @@ import { ThemeProvider } from '../../../theme/theme'
 import { NavBar } from '../NavBar/NavBar'
 import { makeStyles } from '@material-ui/core/styles'
 import { Home } from '../../../pages/Home'
+import { QuoteRoute } from '../../../pages/Quote/Quote'
+import { truncate } from 'lodash'
+// import styled from 'styled-components'
 
 const useStyles = makeStyles((theme) => ({
     style: {
@@ -29,10 +32,29 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
+/*const Main = styled.main`
+    position: relative;
+    overflow: hidden;
+    transition: all 0.15s;
+    padding: 0 20px;
+    margin-left: ${(props) => (props.expanded ? 240 : 64)}px;
+`*/
+
 export const SideBar = (props) => {
+    // const [expanded, setExpanded] = useState(false)
+    const expanded = useState(false)
     const [isDark, setDark] = useState(false)
     const [shouldRefresh] = useState(false)
+    const mounted = useRef(null)
+    useEffect(() => {
+        mounted.current = truncate
+        if (mounted.current) {
+        }
+        return () => (mounted.current = false)
+    }, [expanded, shouldRefresh])
+
     const handleMode = (e) => setDark(e)
+
     const classes = useStyles()
     return (
         <>
@@ -75,6 +97,7 @@ export const SideBar = (props) => {
                     </SideNav.Nav>
                 </SideNav>
                 <NavBar {...props} setDark={(e) => handleMode(e)} />
+                {/*<Main expanded={expanded}>*/}
                 <Switch>
                     <Route exact path="/" component={() => <Home />} />
                     <Route
@@ -98,6 +121,10 @@ export const SideBar = (props) => {
                         component={() => <CharacterRoute />}
                     />
                     <Route
+                        path="/quotes/:id"
+                        component={() => <QuoteRoute />}
+                    />
+                    <Route
                         path="/killers"
                         component={() => <KillersWithTheme />}
                     />
@@ -108,6 +135,7 @@ export const SideBar = (props) => {
                     <Route path="/killer/" component={() => <KillerRoute />} />
                     <Route component={() => <ErrorPage />} />
                 </Switch>
+                {/*</Main>*/}
             </ThemeProvider>
         </>
     )

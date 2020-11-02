@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Card } from '../../Card/Card'
-import Body from '../../Card/Body/Body'
 import Loader from 'react-loader-spinner'
 import { KillerDetails } from './KillerDetails'
+import { getEpisodeBySeasonAndEpisode } from '../../../services/seasons/seasonServices'
+import { Title } from '../../Titles/Title/Title'
 
 export const CardKiller = (props) => {
-    const { killer } = props
+    const { killer, deaths } = props
     const [loading, setLoading] = useState(false)
     const mounted = useRef(null)
 
@@ -33,9 +34,31 @@ export const CardKiller = (props) => {
             )}
             {!loading && killer && (
                 <>
-                    <Card name={`${killer.death}`}>
-                        <KillerDetails {...props} />
-                    </Card>
+                    <Title title={`${killer.name}`}></Title>
+                    <Title
+                        title={`Number of Murders: ${killer.deathCount}`}
+                        size="small"
+                        isList={true}
+                    ></Title>
+                    {deaths &&
+                        deaths.map((death, index) => {
+                            getEpisodeBySeasonAndEpisode(
+                                death.season,
+                                death.episode
+                            ).then((resp) => {
+                                // setEpisode([...episode, resp])
+                                // setLoading(false)
+                            })
+                            return (
+                                <Card
+                                    key={index}
+                                    name={`${death.death}`}
+                                    isList={true}
+                                >
+                                    <KillerDetails {...props} death={death} />
+                                </Card>
+                            )
+                        })}
                 </>
             )}
         </>

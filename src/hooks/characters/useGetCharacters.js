@@ -8,7 +8,7 @@ const useGetCharacters = () => {
         getCharacters().then((resp) => {
             setData(resp)
         })
-    }, [])
+    }, [data])
 
     return data
 }

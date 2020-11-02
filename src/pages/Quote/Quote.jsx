@@ -1,20 +1,17 @@
 import React from 'react'
 import { withRouter } from 'react-router'
-import {
-    getCharacterById,
-    getCharacterByName,
-} from '../../services/characters/characterServices'
 import { withTheme } from '../../theme/theme'
 
 import { connect } from 'react-redux'
-import { CharacterPresenter } from '../../components/Characters/Character/CharacterPresenter'
 import Loader from 'react-loader-spinner'
+import { getQuote } from '../../services/quotes/quoteServices'
+import { QuoteCharacter } from '../../components/Quotes/QuoteCharacter'
 
-export class Character extends React.Component {
+export class Quote extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            character: {},
+            quote: {},
             id: props.match.params.id || -1,
             name: props.location.search || '',
             loading: false,
@@ -22,33 +19,26 @@ export class Character extends React.Component {
     }
 
     componentDidMount() {
-        this.getCharacter()
+        this.getQuote()
     }
     componentDidUpdate(prevProps, prevState) {
         if (prevState.id !== this.state.id) {
-            this.getCharacter()
+            this.getQuote()
         }
     }
-    getCharacter = () => {
+    getQuote = () => {
         this.setState({ loading: true })
         if (this.state.id !== -1) {
-            getCharacterById(this.state.id).then((resp) => {
+            getQuote(this.state.id).then((resp) => {
                 this.setState({ loading: false })
                 this.setState({
-                    character: resp.data[0],
-                })
-            })
-        } else if (this.state.name !== '') {
-            getCharacterByName(this.state.name).then((resp) => {
-                this.setState({ loading: false })
-                this.setState({
-                    character: resp.data[0],
+                    quote: resp.data[0],
                 })
             })
         }
     }
     render() {
-        const { character, loading } = this.state
+        const { quote, loading } = this.state
         return (
             <>
                 {loading && (
@@ -65,9 +55,7 @@ export class Character extends React.Component {
                         width={100}
                     />
                 )}
-                {!loading && character && (
-                    <CharacterPresenter {...this.props} character={character} />
-                )}
+                {!loading && <QuoteCharacter {...this.props} quote={quote} />}
             </>
         )
     }
@@ -79,5 +67,5 @@ const mapStateToProps = (state) => {
     }
 }
 
-export const CharacterConnected = connect(mapStateToProps)(withTheme(Character))
-export const CharacterRoute = withRouter(CharacterConnected)
+export const QuoteConnected = connect(mapStateToProps)(withTheme(Quote))
+export const QuoteRoute = withRouter(QuoteConnected)

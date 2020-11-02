@@ -1,23 +1,27 @@
 import React from 'react'
 import { withRouter } from 'react-router'
-import { getKillerByName } from '../../services/killers/killerServices'
+import {
+    getDeaths,
+    getKillerCountByName,
+} from '../../services/killers/killerServices'
 import { withTheme } from '../../theme/theme'
 import { connect } from 'react-redux'
 import { KillerPresenter } from '../../components/Killers/Killer/KillerPresenter'
 import Loader from 'react-loader-spinner'
+import _ from 'lodash'
 
 export class Killer extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            killer: {},
+            deaths: [],
+            killer: [],
             name: props.location.state.name || '',
             loading: false,
         }
     }
 
     componentDidMount() {
-        console.log('props', this.props)
         this.getKiller()
     }
     componentDidUpdate(prevProps, prevState) {
@@ -28,16 +32,23 @@ export class Killer extends React.Component {
     getKiller = () => {
         this.setState({ loading: true })
         if (this.state.name !== '') {
-            getKillerByName(this.state.name).then((resp) => {
-                this.setState({ loading: false })
-                this.setState({
-                    killer: resp[0],
+            getDeaths().then((resp) => {
+                const deaths = _.filter(resp, (v) =>
+                    _.includes(this.state.name, v.responsible)
+                )
+                getKillerCountByName(this.state.name).then((result) => {
+                    this.setState({
+                        killer: result,
+                        deaths,
+                        loading: false,
+                    })
                 })
             })
         }
     }
+
     render() {
-        const { killer, loading } = this.state
+        const { killer, deaths, loading } = this.state
         return (
             <>
                 {loading && (
@@ -54,8 +65,12 @@ export class Killer extends React.Component {
                         width={100}
                     />
                 )}
-                {!loading && killer && (
-                    <KillerPresenter {...this.props} killer={killer} />
+                {!loading && killer && deaths && (
+                    <KillerPresenter
+                        {...this.props}
+                        killer={killer}
+                        deaths={deaths}
+                    />
                 )}
             </>
         )

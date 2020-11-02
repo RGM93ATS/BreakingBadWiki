@@ -1,22 +1,20 @@
 import { useState, useEffect } from 'react'
 import { getQuotesByAuthor } from '../../services/quotes/quoteServices'
-import _ from 'lodash'
 
 const useGetQuotesByAuthor = (name) => {
     const [data, setData] = useState(null)
     useEffect(() => {
-        /*getQuotesByAuthor(name).then((resp) => {
-            setData(resp.data)
-        })*/
+        const interval = setInterval(() => {
+            getQuotesByAuthor(name).then((resp) => {
+                setData(resp.data)
+            })
+        }, 2000)
+        return () => {
+            clearInterval(interval)
+        }
     }, [name])
 
-    const getQuotesByCharacter = (name) => {
-        getQuotesByAuthor(name).then((resp) => {
-            setData(resp.data)
-        })
-    }
-
-    return { data, getQuotesByCharacter }
+    return data
 }
 
 export default useGetQuotesByAuthor

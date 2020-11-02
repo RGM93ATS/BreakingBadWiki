@@ -6,7 +6,6 @@ import { Button } from '../../Buttons/Button/Button'
 
 export const ButtonsCRUD = (props) => {
     const { handleUser, isList } = props
-    console.log('isListPre', isList)
     return (
         <>
             <div

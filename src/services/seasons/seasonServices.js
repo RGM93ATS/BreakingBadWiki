@@ -2,10 +2,15 @@ import axios from 'axios'
 import _ from 'lodash'
 const API_SEASONS = 'https://www.breakingbadapi.com/api/episodes/'
 
+const CancelToken = axios.CancelToken
+const source = CancelToken.source()
+
 export const getSeasons = () => {
     return new Promise((resolve, reject) => {
         axios
-            .get(API_SEASONS)
+            .get(API_SEASONS, {
+                cancelToken: source.token,
+            })
             .then((response) => {
                 const resp = _.filter(response.data, (v) =>
                     _.includes('Breaking Bad', v.series)
@@ -13,8 +18,13 @@ export const getSeasons = () => {
                 resolve(resp)
             })
             .catch((error) => {
-                console.error(error)
-                reject(new Error('fail'))
+                if (axios.isCancel(error)) {
+                    console.log('Request canceled', error.message)
+                    source.cancel('Operation canceled by the user.')
+                } else {
+                    console.error(error)
+                    reject(new Error('fail'))
+                }
             })
     })
 }
@@ -30,6 +40,12 @@ export const getEpisode = (id) => {
                 console.error(error)
                 reject(new Error('fail'))
             })
+    })
+}
+
+export const getEpisodesByName = (name) => {
+    return getSeasons().then((response) => {
+        return _.filter(response.data, (v) => _.includes(name, v.title))
     })
 }
 

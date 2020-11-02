@@ -2,7 +2,7 @@ import React from 'react'
 import { Subtitle } from '../../Titles/Subtitle/Subtitle'
 
 export const CharacterDetails = (props) => {
-    const { character } = props
+    const { character, killer } = props
     return (
         <>
             <div style={{ width: '50%', display: 'flex' }}>
@@ -14,10 +14,13 @@ export const CharacterDetails = (props) => {
                     <Subtitle title="Status" isFlex={true}>
                         <h3>{character.status}</h3>
                     </Subtitle>
-                    <Subtitle title="Birthday" isFlex={true}>
-                        <h3>{`${character.birthday}`}</h3>
+                    <Subtitle title="Murders" isFlex={true}>
+                        <h3>{killer.deathCount || 0}</h3>
                     </Subtitle>
                 </div>
+                <Subtitle title="Birthday" isFlex={true}>
+                    <h3>{`${character.birthday}`}</h3>
+                </Subtitle>
                 <Subtitle title="Occupations">
                     {character.occupation &&
                         character.occupation.map((occupation, index) => {

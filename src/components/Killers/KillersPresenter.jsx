@@ -7,8 +7,11 @@ import { Switch } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        marginTop: '2%',
+        // marginTop: '2%',
         color: 'green',
+        marginRight: '13%',
+        marginLeft: '35%',
+        marginTop: '1%',
     },
     dark: {
         marginTop: '2%',
@@ -20,76 +23,84 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export const ListKillers = (props) => {
-    const { theme, killers, handleOrder } = props
-    console.log('ñeñe', killers)
+    const { theme, killersOrdered, handleOrder } = props
     const [orderChecked, setOrderChecked] = useState(false)
     const [currentPage, setCurrentPage] = useState(1)
     const [charactersPerPage] = useState(4)
     const indexOfLastcharacter = currentPage * charactersPerPage
     const indexOfFirstcharacter = indexOfLastcharacter - charactersPerPage
-    const currentPosts = killers.data.slice(
+    const currentPosts = killersOrdered.slice(
         indexOfFirstcharacter,
         indexOfLastcharacter
     )
-    const indexPages = parseInt(killers.data.length / charactersPerPage) + 1
+    const indexPages = parseInt(killersOrdered.length / charactersPerPage) + 1
 
     const onChangePage = (e, newPage) => {
         setCurrentPage(newPage)
     }
     const switchOrder = () => {
         setOrderChecked(!orderChecked)
-        console.log('fffffffffffffffffff', orderChecked)
         handleOrder(orderChecked ? 'desc' : 'asc')
     }
+
     const classes = useStyles()
     return (
         <>
             {currentPosts && (
                 <>
-                    <Pagination
-                        className={!theme.dark ? classes.dark : classes.root}
-                        page={currentPage}
-                        count={indexPages}
-                        onChange={onChangePage}
-                    />
                     <div
                         style={{
                             display: 'flex',
-                            marginTop: '5%',
-                            width: '50%',
+                            marginTop: '2%',
+                            width: '100%',
                             justifyContent: 'center',
                         }}
                     >
-                        <Title
-                            title={
-                                !orderChecked
-                                    ? 'Dec killers order'
-                                    : 'Asc killers order'
+                        <Pagination
+                            className={
+                                !theme.dark ? classes.dark : classes.root
                             }
+                            page={currentPage}
+                            count={indexPages}
+                            onChange={onChangePage}
                         />
-                        <div style={{ margin: '2.6%' }}>
-                            <Switch
-                                checked={!orderChecked}
-                                onChange={() => switchOrder()}
-                                color="primary"
-                                name="checkedB"
-                                inputProps={{
-                                    'aria-label': 'primary checkbox',
-                                }}
+                        <div
+                            style={{
+                                display: 'flex',
+                                marginRight: '15%',
+                                marginTop: '0.5%',
+                            }}
+                        >
+                            <Title
+                                title={!orderChecked ? 'DESC' : 'ASC'}
+                                size="small"
                             />
+                            <div style={{ margin: '7.5%' }}>
+                                <Switch
+                                    checked={!orderChecked}
+                                    onChange={() => switchOrder()}
+                                    color="primary"
+                                    name="checkedB"
+                                    inputProps={{
+                                        'aria-label': 'primary checkbox',
+                                    }}
+                                />
+                            </div>
                         </div>
                     </div>
 
-                    {currentPosts.map((killers) => (
-                        <List
-                            name={`${killers.death}`}
-                            description={`(${killers.number_of_deaths})`}
-                            key={killers.death_id}
-                            id={killers.death}
-                            type="/killer/"
-                            isList={true}
-                        ></List>
-                    ))}
+                    {currentPosts.map((killersOrdered) => {
+                        return (
+                            <List
+                                name={`${killersOrdered.name}`}
+                                description={`(${killersOrdered.count})`}
+                                key={killersOrdered.name}
+                                id={killersOrdered.name}
+                                type="/killer/"
+                                isList={true}
+                            ></List>
+                        )
+                    })}
                 </>
             )}
         </>

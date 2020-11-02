@@ -5,7 +5,11 @@ export const Title = (props) => {
     return (
         <h2
             style={
-                size === 'small' ? { fontSize: '20px' } : { marginTop: '3%' }
+                size === 'small'
+                    ? { fontSize: '20px' }
+                    : size === 'large'
+                    ? { fontSize: '50px' }
+                    : { marginTop: '3%' }
             }
         >
             {title}

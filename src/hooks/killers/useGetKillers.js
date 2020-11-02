@@ -8,7 +8,7 @@ const useGetKillers = (order) => {
         getKillers(order).then((resp) => {
             setData(resp)
         })
-    }, [order])
+    }, [data, order])
 
     const setOrder = (order) =>
         getKillers(order).then((resp) => {

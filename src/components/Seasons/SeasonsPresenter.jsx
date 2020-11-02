@@ -21,9 +21,11 @@ export const ListSeasons = (props) => {
 export const SeasonsPresenter = (props) => {
     const { theme } = props
     return (
-        <header className={theme.dark ? 'darkMode' : 'App-header'}>
+        <>
+            {/*<header className={theme.dark ? 'darkMode' : 'App-header'}>*/}
             <Title title="Seasons"></Title>
             <ListSeasons {...props} />
-        </header>
+            {/*</header>*/}
+        </>
     )
 }

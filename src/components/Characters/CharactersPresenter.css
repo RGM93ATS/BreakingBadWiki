@@ -1,0 +1,13 @@
+.root {
+    background-color: white;
+    padding: 5% 5% !important;
+    justify-content: center;
+    display: flex;
+}
+.dark {
+    margin-top: 2%;
+    background-color: white;
+    padding: 20px 50px;
+    border-radius: 5rem;
+    margin: 5% 5% 0% 5%;
+}

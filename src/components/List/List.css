@@ -1,0 +1,10 @@
+.list {
+    display: inline-flex;
+    background-color: #369457;
+    border-radius: 1rem;
+    margin: 3% 5% 0% 5%;
+    padding: 0% 0% 0% 5%;
+    width: 70%;
+    color: white;
+    justify-content: center;
+}

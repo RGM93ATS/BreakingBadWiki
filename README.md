@@ -41,7 +41,7 @@
     
   # High Order Component
   
-  El proyecto en sí está envuelto de una herramienta interesante que nos permite poder acceder a los elementos de enrutamiento match, location e history, claves para poder interactuar entre vistas y accesos a rutas con las que poder consultar más datos. Esta herramienta facilita el poder inyectar desde un componente una serie de elementos como son las rutas, los filtros de búsqueda e incluso estados con los que poder consultar posteriormente en el otro componente al que se redirije. withRouter() está contemplado en las clases de ciclos de vida que realmente necesita obtener estos datos, como son Character, Killer, Quote, Season y Episode. 
+  El proyecto en sí está envuelto de una herramienta interesante que nos permite poder acceder a los elementos de enrutamiento match, location e history, claves para poder interactuar entre vistas y accesos a rutas con las que poder consultar más datos. Esta herramienta facilita el poder inyectar desde un componente una serie de elementos como son las rutas, los filtros de búsqueda e incluso estados con los que poder consultar posteriormente en el otro componente al que se redirige. withRouter() está contemplado en las clases de ciclos de vida que realmente necesita obtener estos datos, como son Character, Killer, Quote, Season y Episode. 
     
   Para el uso de Redux en los componentes del proyecto, también se necesita "conectar" las vías por donde la aplicación dispara una acción y recoge de la store el estado a proporcionar. connect() nos facilita esa interacción con el manejo del estado de la aplicación de una forma más cómoda y sencilla.
     

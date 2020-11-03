@@ -1,8 +1,7 @@
 import React from 'react'
-import { withTheme } from '../../theme/theme'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { decrement, increment, setCount } from '../../actions/counter/counter'
+import { setSearch } from '../../actions/search/search'
 import { CharactersPresenter } from '../../components/Characters/CharactersPresenter'
 import Loader from 'react-loader-spinner'
 import { getCharacters } from '../../services/characters/characterServices'
@@ -54,15 +53,13 @@ export class Characters extends React.Component {
 }
 const mapStateToProps = (state) => {
     return {
-        counter: state,
+        search: state,
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators(
         {
-            increment,
-            decrement,
-            setCount,
+            setSearch,
         },
         dispatch
     )
@@ -71,5 +68,5 @@ const mapDispatchToProps = (dispatch) => {
 export const CharactersConnected = connect(
     mapStateToProps,
     mapDispatchToProps
-)(withTheme(Characters))
-export const CharactersWithTheme = withTheme(CharactersConnected)
+)(Characters)
+export const CharactersWithTheme = CharactersConnected

@@ -1,8 +1,7 @@
 import React from 'react'
-import { withTheme } from '../../theme/theme'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { decrement, increment, setCount } from '../../actions/counter/counter'
+import { setSearch } from '../../actions/search/search'
 import { KillersPresenter } from '../../components/Killers/KillersPresenter'
 import Loader from 'react-loader-spinner'
 import {
@@ -89,15 +88,13 @@ export class Killers extends React.Component {
 }
 const mapStateToProps = (state) => {
     return {
-        counter: state,
+        search: state,
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators(
         {
-            increment,
-            decrement,
-            setCount,
+            setSearch,
         },
         dispatch
     )
@@ -106,5 +103,5 @@ const mapDispatchToProps = (dispatch) => {
 export const KillersConnected = connect(
     mapStateToProps,
     mapDispatchToProps
-)(withTheme(Killers))
-export const KillersWithTheme = withTheme(KillersConnected)
+)(Killers)
+export const KillersWithTheme = KillersConnected

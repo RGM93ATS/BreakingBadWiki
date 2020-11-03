@@ -6,7 +6,7 @@ export const Subtitle = (props) => {
         <div
             style={{
                 display: 'block',
-                margin: isMargin ? '0% 30% 5% 0%' : 'unset',
+                margin: isMargin ? '5% 0% 0% 0%' : 'unset',
                 width: '100%',
             }}
         >

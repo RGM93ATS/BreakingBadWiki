@@ -7,7 +7,7 @@ export const Quotes = (props) => {
         <>
             {quotes &&
                 quotes.map((quote, index) => {
-                    return <Quote key={index} quote={quote} />
+                    return <Quote {...props} key={index} quote={quote} />
                 })}
         </>
     )

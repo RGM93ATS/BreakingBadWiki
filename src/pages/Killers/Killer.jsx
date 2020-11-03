@@ -4,7 +4,6 @@ import {
     getDeaths,
     getKillerCountByName,
 } from '../../services/killers/killerServices'
-import { withTheme } from '../../theme/theme'
 import { connect } from 'react-redux'
 import { KillerPresenter } from '../../components/Killers/Killer/KillerPresenter'
 import Loader from 'react-loader-spinner'
@@ -83,5 +82,5 @@ const mapStateToProps = (state) => {
     }
 }
 
-export const KillerConnected = connect(mapStateToProps)(withTheme(Killer))
+export const KillerConnected = connect(mapStateToProps)(Killer)
 export const KillerRoute = withRouter(KillerConnected)

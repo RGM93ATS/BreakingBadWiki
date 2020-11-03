@@ -11,7 +11,7 @@ export const List = (props) => {
             <Link
                 to={{
                     pathname: id ? type + id : type,
-                    search: !id && name && `?name=${name}`,
+                    search: !id && name && name,
                     state: {
                         name: name,
                     },

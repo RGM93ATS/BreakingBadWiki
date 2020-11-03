@@ -1,28 +1,19 @@
 import axios from 'axios'
 const API_CHARACTERS = 'https://www.breakingbadapi.com/api/characters/'
+const API_CHARACTERS_NAME = 'https://www.breakingbadapi.com/api/characters'
 const API_CHARACTERS_RANDOM =
     'https://www.breakingbadapi.com/api/characters?category='
-
-const CancelToken = axios.CancelToken
-const source = CancelToken.source()
 
 export const getCharacters = () => {
     return new Promise((resolve, reject) => {
         axios
-            .get(API_CHARACTERS, {
-                cancelToken: source.token,
-            })
+            .get(API_CHARACTERS)
             .then((response) => {
                 resolve(response)
             })
             .catch((error) => {
-                if (axios.isCancel(error)) {
-                    console.log('Request canceled', error.message)
-                    source.cancel('Operation canceled by the user.')
-                } else {
-                    console.error(error)
-                    reject(new Error('fail'))
-                }
+                console.error(error)
+                reject(new Error('fail'))
             })
     })
 }
@@ -42,22 +33,16 @@ export const getCharacterById = (id) => {
 }
 
 export const getCharacterByName = (name) => {
+    name = name.toString().replace(' ', '+')
     return new Promise((resolve, reject) => {
         axios
-            .get(API_CHARACTERS + '?name=' + name, {
-                cancelToken: source.token,
-            })
+            .get(API_CHARACTERS_NAME + '?name=' + name)
             .then((response) => {
                 resolve(response)
             })
             .catch((error) => {
-                if (axios.isCancel(error)) {
-                    console.log('Request canceled', error.message)
-                    source.cancel('Operation canceled by the user.')
-                } else {
-                    console.error(error)
-                    reject(new Error('fail'))
-                }
+                console.error(error)
+                reject(new Error('fail'))
             })
     })
 }

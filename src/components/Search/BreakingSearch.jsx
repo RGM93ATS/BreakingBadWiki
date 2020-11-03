@@ -6,6 +6,9 @@ import Autocomplete, {
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { handleData } from '../../functions/search'
 
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { setSearch } from '../../actions/search/search'
 import { withRouter } from 'react-router-dom'
 
 function sleep(delay = 0) {
@@ -16,16 +19,17 @@ function sleep(delay = 0) {
 
 const filter = createFilterOptions()
 
-export const Asynchronous = (props) => {
+export const BreakingSearch = (props) => {
+    const { search, setSearch } = props
     const [open, setOpen] = useState(false)
-    const [value, setValue] = useState('')
+    const [value, setValue] = useState(search.search)
     const [options, setOptions] = useState([])
     const [contentLoaded, setContentLoaded] = useState(false)
     const loading = open && options.length === 0
 
+    console.log('search', search)
     useEffect(() => {
         let active = true
-
         if (!loading && contentLoaded && options.length !== 0) {
             return undefined
         } else if (!contentLoaded && options.length === 0) {
@@ -54,13 +58,14 @@ export const Asynchronous = (props) => {
                 }`,
                 state: { name: value.title },
             }
-            props.history.replace(params)
+            props.history.push(params.pathname, params.state)
+            props.history.go(0)
         }
     }
 
     return (
         <Autocomplete
-            id="asynchronous-demo"
+            id="breakinsearch"
             value={value}
             open={open}
             onOpen={() => {
@@ -70,6 +75,7 @@ export const Asynchronous = (props) => {
                 setOpen(false)
             }}
             onChange={(event, newValue) => {
+                console.log('2', newValue)
                 handleValue(newValue)
             }}
             getOptionSelected={(option, value) => option.title === value.name}
@@ -77,12 +83,11 @@ export const Asynchronous = (props) => {
             filterOptions={(options, params) => {
                 const filtered = filter(options, params)
                 if (params.inputValue !== '') {
-                    // this.handleSearch(params.inputValue)
                     filtered.push({
                         inputValue: params.inputValue,
                     })
+                    // setSearch(params.inputValue) --- Inyección de nuevo valor de filtrado de búsqueda para la store
                 }
-
                 return filtered
             }}
             options={
@@ -129,4 +134,22 @@ export const Asynchronous = (props) => {
     )
 }
 
-export default withRouter(Asynchronous)
+const mapStateToProps = (state) => {
+    return {
+        search: state,
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators(
+        {
+            setSearch,
+        },
+        dispatch
+    )
+}
+
+export const BreakingConnected = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(BreakingSearch)
+export default withRouter(BreakingConnected)

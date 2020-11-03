@@ -1,41 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React from 'react'
 import { Card } from '../../Card/Card'
-import Loader from 'react-loader-spinner'
 import { KillerDetails } from './KillerDetails'
 import { getEpisodeBySeasonAndEpisode } from '../../../services/seasons/seasonServices'
 import { Title } from '../../Titles/Title/Title'
+import { ThemeContext } from '../../../contexts/theme-context'
 
 export const CardKiller = (props) => {
-    const { killer, deaths } = props
-    const [loading, setLoading] = useState(false)
-    const mounted = useRef(null)
-
-    useEffect(() => {
-        mounted.current = true
-        setLoading(true)
-        if (killer) {
-            if (mounted.current) {
-                setLoading(false)
-            }
-        }
-        return () => (mounted.current = false)
-    }, [killer, setLoading, loading])
+    const { killer, deaths, theme } = props
 
     return (
         <>
-            {loading && (
-                <Loader
-                    type="Puff"
-                    color="#00BFFF"
-                    height={100}
-                    width={100}
-                    timeout={2000}
-                />
-            )}
-            {!loading && killer && (
+            {killer && (
                 <>
-                    <Title title={`${killer.name}`}></Title>
+                    <Title theme={theme} title={`${killer.name}`}></Title>
                     <Title
+                        theme={theme}
                         title={`Number of Murders: ${killer.deathCount}`}
                         size="small"
                         isList={true}
@@ -45,10 +24,7 @@ export const CardKiller = (props) => {
                             getEpisodeBySeasonAndEpisode(
                                 death.season,
                                 death.episode
-                            ).then((resp) => {
-                                // setEpisode([...episode, resp])
-                                // setLoading(false)
-                            })
+                            )
                             return (
                                 <Card
                                     key={index}
@@ -66,10 +42,6 @@ export const CardKiller = (props) => {
 }
 
 export const KillerPresenter = (props) => {
-    const { theme } = props
-    return (
-        <header className={theme?.dark ? 'darkMode' : 'App-header'}>
-            <CardKiller {...props} />
-        </header>
-    )
+    const { dark, theme } = React.useContext(ThemeContext)
+    return <CardKiller {...props} theme={theme} dark={dark} />
 }

@@ -2,6 +2,8 @@ import React from 'react'
 import { Title } from '../Titles/Title/Title'
 import { Season } from '../../pages/Seasons/Season'
 
+import { ThemeContext } from '../../contexts/theme-context'
+
 export const ListSeasons = (props) => {
     const { seasons } = props
 
@@ -19,13 +21,11 @@ export const ListSeasons = (props) => {
 }
 
 export const SeasonsPresenter = (props) => {
-    const { theme } = props
+    const { theme } = React.useContext(ThemeContext)
     return (
         <>
-            {/*<header className={theme.dark ? 'darkMode' : 'App-header'}>*/}
-            <Title title="Seasons"></Title>
+            <Title theme={theme} title="Seasons"></Title>
             <ListSeasons {...props} />
-            {/*</header>*/}
         </>
     )
 }

@@ -1,17 +1,18 @@
 import React from 'react'
 import { withRouter } from 'react-router'
 import { getEpisode } from '../../services/seasons/seasonServices'
-import { withTheme } from '../../theme/theme'
 
 import { connect } from 'react-redux'
 import { EpisodePresenter } from '../../components/Seasons/Episodes/Episode/EpisodePresenter'
 import Loader from 'react-loader-spinner'
+import { getRandomQuoteByAuthor } from '../../services/quotes/quoteServices'
 
 export class Episode extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             episode: {},
+            quotes: [],
             id: props.match.params.id || 0,
             loading: false,
         }
@@ -27,15 +28,27 @@ export class Episode extends React.Component {
     }
     getEpisode = () => {
         this.setState({ loading: true })
-        getEpisode(this.state.id).then((resp) => {
-            this.setState({ loading: false })
-            this.setState({
-                episode: resp.data[0],
+        getEpisode(this.state.id)
+            .then((resp) => {
+                this.setState({ loading: false })
+                this.setState({
+                    episode: resp.data[0],
+                })
+                return resp
             })
-        })
+            .then((resp) => {
+                resp.data[0].characters.map((character) => {
+                    getRandomQuoteByAuthor(character).then((resp) => {
+                        const newResult = resp.data[0]
+                        this.setState({
+                            quotes: [...this.state.quotes, newResult],
+                        })
+                    })
+                })
+            })
     }
     render() {
-        const { episode, loading } = this.state
+        const { episode, quotes, loading } = this.state
         return (
             <>
                 {loading && (
@@ -53,7 +66,11 @@ export class Episode extends React.Component {
                     />
                 )}
                 {!loading && episode && (
-                    <EpisodePresenter {...this.props} episode={episode} />
+                    <EpisodePresenter
+                        {...this.props}
+                        episode={episode}
+                        quotes={quotes}
+                    />
                 )}
             </>
         )
@@ -66,5 +83,5 @@ const mapStateToProps = (state) => {
     }
 }
 
-export const EpisodeConnected = connect(mapStateToProps)(withTheme(Episode))
+export const EpisodeConnected = connect(mapStateToProps)(Episode)
 export const EpisodeRoute = withRouter(EpisodeConnected)

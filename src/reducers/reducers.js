@@ -1,4 +1,4 @@
 import { combineReducers } from 'redux'
-import counter from './counter/counter'
+import search from './search/search'
 
-export const reducers = combineReducers({ counter })
+export const reducers = combineReducers({ search })

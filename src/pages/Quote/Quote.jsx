@@ -1,6 +1,5 @@
 import React from 'react'
 import { withRouter } from 'react-router'
-import { withTheme } from '../../theme/theme'
 
 import { connect } from 'react-redux'
 import Loader from 'react-loader-spinner'
@@ -67,5 +66,5 @@ const mapStateToProps = (state) => {
     }
 }
 
-export const QuoteConnected = connect(mapStateToProps)(withTheme(Quote))
+export const QuoteConnected = connect(mapStateToProps)(Quote)
 export const QuoteRoute = withRouter(QuoteConnected)

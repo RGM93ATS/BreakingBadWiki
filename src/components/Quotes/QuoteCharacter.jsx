@@ -8,17 +8,22 @@ import { Card } from '../Card/Card'
 export const QuoteCharacter = (props) => {
     const { quote, quotes, refreshQuote } = props
     const [showQuotes, setShowQuotes] = useState(false)
-
     const handleShowQuotes = () => {
         setShowQuotes(!showQuotes)
     }
     return (
         <>
             {quote && (
-                <div style={{ display: 'flex', width: '100%' }}>
+                <div
+                    style={{
+                        display: 'flex',
+                        width: '100%',
+                    }}
+                >
                     <>
                         {quotes && (
                             <ButtonsQuote
+                                {...props}
                                 size="medium"
                                 refreshQuote={() => refreshQuote()}
                                 getAllQuotes={() => handleShowQuotes()}
@@ -28,7 +33,7 @@ export const QuoteCharacter = (props) => {
                             name="Quote"
                             size={quotes ? 'small' : 'smallCard'}
                         >
-                            <Quote quote={quote} />
+                            <Quote {...props} quote={quote} />
                         </Card>
                     </>
                 </div>
@@ -36,7 +41,7 @@ export const QuoteCharacter = (props) => {
             {showQuotes && quotes && (
                 <>
                     <Card name="Quotes" key={quotes.author} isList={true}>
-                        <Quotes quotes={quotes} />
+                        <Quotes {...props} quotes={quotes} />
                     </Card>
                 </>
             )}

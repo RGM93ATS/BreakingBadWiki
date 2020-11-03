@@ -5,18 +5,12 @@ const useGetCharactersByName = (name) => {
     const [data, setData] = useState([])
 
     useEffect(() => {
-        getCharacterByName('?name=' + name).then((resp) => {
-            setData(resp)
+        getCharacterByName(name).then((resp) => {
+            setData(resp.data[0])
         })
     }, [name])
 
-    const setCharacters = (name) => {
-        getCharacterByName('?name=' + name).then((resp) => {
-            setData(resp)
-        })
-    }
-
-    return { data, setCharacters }
+    return data
 }
 
 export default useGetCharactersByName

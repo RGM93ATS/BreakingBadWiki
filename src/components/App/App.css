@@ -1,8 +1,16 @@
+html,
+body,
+#root,
 .App {
-    text-align: center;
+    height: 100%;
 }
 
-.App-header {
+.App {
+    text-align: center;
+    height: 100vh;
+}
+
+.light {
     background-color: #282c34;
     min-height: 100vh;
     display: flex;
@@ -14,7 +22,7 @@
     margin-left: 60px;
 }
 
-.darkMode {
+.dark {
     color: black;
     background-color: white;
     display: flex;

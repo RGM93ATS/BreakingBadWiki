@@ -11,7 +11,6 @@ import { makeStyles } from '@material-ui/core/styles'
 const useStyles = makeStyles((theme) => ({
     root: {
         borderRadius: '10px',
-        margin: '2%',
         background: '#369457',
         position: 'unset',
         color: 'white',
@@ -39,7 +38,7 @@ export const CardSeason = (props) => {
     const { season } = props
     const classes = useStyles()
     return (
-        <>
+        <div style={{ margin: '3% 0% 0% 18%' }}>
             {season && (
                 <Accordion className={classes.root}>
                     <AccordionSummary
@@ -58,7 +57,7 @@ export const CardSeason = (props) => {
                     </AccordionDetails>
                 </Accordion>
             )}
-        </>
+        </div>
     )
 }
 

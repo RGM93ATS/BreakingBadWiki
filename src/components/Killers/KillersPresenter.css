@@ -1,0 +1,20 @@
+.root {
+    background-color: white;
+    color: green;
+    padding: 5% 5% !important;
+}
+
+.dark {
+    margin-top: 2%;
+    padding: 20px 50px;
+    border-radius: 5rem;
+    margin: 5% 5% 0% 5%;
+}
+
+.pagination {
+    display: flex;
+    margin: 2% 0%;
+    padding: 0% 10% 0 10%;
+    width: 80%;
+    justify-content: center;
+}

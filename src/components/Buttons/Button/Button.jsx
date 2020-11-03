@@ -3,7 +3,13 @@ import './Button.css'
 
 export const Button = (props) => {
     return (
-        <div className={props.size === 'medium' ? 'mediumButton' : 'button'}>
+        <div
+            style={{
+                color:
+                    props.theme && props.theme.color ? props.theme.color : '',
+            }}
+            className={props.size === 'medium' ? 'mediumButton' : 'button'}
+        >
             <div onClick={() => props.handleButton(props.action)}>
                 {props.children}
             </div>

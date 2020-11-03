@@ -3,7 +3,7 @@ import { animations } from 'react-animation'
 import { useHistory } from 'react-router-dom'
 
 export const ImagePresentation = (props) => {
-    const { card } = props
+    const { card, theme } = props
     const history = useHistory()
     const handleRoute = (link) => history.push(link)
     return (
@@ -18,7 +18,7 @@ export const ImagePresentation = (props) => {
                 height={250}
                 alt="characters"
             />
-            <h3>{card.title}</h3>
+            <h3 style={{ color: theme.color }}>{card.title}</h3>
         </div>
     )
 }

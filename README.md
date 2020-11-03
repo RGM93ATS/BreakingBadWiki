@@ -1,4 +1,4 @@
-# BreakingBadWiki
+# Breaking Bad Wiki
 
   Breaking Bad Wiki es un lugar donde podremos consultar información de la serie "Breaking Bad".
 

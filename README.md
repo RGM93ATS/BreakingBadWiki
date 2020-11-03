@@ -108,10 +108,16 @@
   Las llamadas a la API están separadas por cada sección, manteniendo un orden y una gestión mejor de las peticiones para futuros cambios y detectar posibles errores por parte de cambios en las mismas. Donde más he notado la problemática de dichas llamadas ha sido con React Hooks, el cual no llegaba a poder ser montado la vista que antes de tiempo estaban ya realizadas las llamadas, y sobretodo por el tacto que hay que tener con useEffect() para controlar dicha repetición de llamadas a través de cleanups.
     
     
+    
+  # Conclusión Final
+  
+  Desarrollar con React no es tarea fácil: Hay que tener claro muchísimos conceptos que incluso los que más saben en el ámbito tecnológico, a veces se bloquean y no saben como afrontar una implementación. 
+  
+  Volver a crear un proyecto en React me ha hecho darme cuenta de nuevo que la tecnología del futuro es React, y que cada día se puede descubrir cosas muy interesantes con las que poder desarrollar un proyecto personal, para tu empresa, o incluso para tu propia startup. Estas cosas son las que me motivan poder seguir aprendiendo, y mejorar cada día más.
   
   Todos los puntos a tratar en el enunciado deberían de estar disponibles en el proyecto para su correcto funcionamiento. 
   
-  Cualquier pregunta, duda o correción, puedes contactar conmigo a través de mi email corporativo o por Microsoft Teams,
+  Cualquier pregunta, duda o correción, puedes contactar conmigo a través de mi email corporativo o por Microsoft Teams.
   
   Rubén González Membrilla
     

@@ -20,14 +20,13 @@ function sleep(delay = 0) {
 const filter = createFilterOptions()
 
 export const BreakingSearch = (props) => {
-    const { search } = props
+    const { search, history } = props
     const [open, setOpen] = useState(false)
     const [value, setValue] = useState(search.search)
     const [options, setOptions] = useState([])
     const [contentLoaded, setContentLoaded] = useState(false)
     const loading = open && options.length === 0
 
-    console.log('search', search)
     useEffect(() => {
         let active = true
         if (!loading && contentLoaded && options.length !== 0) {
@@ -58,8 +57,7 @@ export const BreakingSearch = (props) => {
                 }`,
                 state: { name: value.title },
             }
-            props.history.push(params.pathname, params.state)
-            props.history.go(0)
+            history.push(params)
         }
     }
 
@@ -75,7 +73,7 @@ export const BreakingSearch = (props) => {
                 setOpen(false)
             }}
             onChange={(event, newValue) => {
-                console.log('2', newValue)
+                setSearch(newValue)
                 handleValue(newValue)
             }}
             getOptionSelected={(option, value) => option.title === value.name}

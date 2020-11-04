@@ -14,7 +14,11 @@ export class Character extends React.Component {
         this.state = {
             character: {},
             id: props.match.params.id || -1,
-            name: props.location.state.name || props.location.search || '',
+            name: this.props.location.state
+                ? this.props.location.state.name
+                : this.props.location.search
+                ? this.props.location.search
+                : '',
         }
     }
 
@@ -25,7 +29,25 @@ export class Character extends React.Component {
         if (prevState.id !== this.state.id) {
             this.getCharacter()
         }
+        if (prevProps.location.pathname !== this.props.location.pathname) {
+            this.setState({
+                id: this.props.match.params.id || -1,
+                name: this.props.location.state
+                    ? this.props.location.state.name
+                    : this.props.location.search
+                    ? this.props.location.search
+                    : '',
+            })
+        }
     }
+
+    /*componentDidUpdate(prevProps, nextProps) {
+        if (this.props.location.pathname !== nextProps.props.location.pathname){
+         this.props.location.pathname
+         
+        }
+       }*/
+
     getCharacter = () => {
         if (this.state.id !== -1) {
             getCharacterById(this.state.id).then((resp) => {

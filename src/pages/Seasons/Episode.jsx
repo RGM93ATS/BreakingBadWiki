@@ -13,7 +13,7 @@ export class Episode extends React.Component {
         this.state = {
             episode: {},
             quotes: [],
-            id: props.match.params.id || 0,
+            id: props.match.params.id || -1,
             loading: false,
         }
     }
@@ -24,6 +24,11 @@ export class Episode extends React.Component {
     componentDidUpdate(prevProps, prevState) {
         if (prevState.id !== this.state.id) {
             this.getEpisode()
+        }
+        if (prevProps.location.pathname !== this.props.location.pathname) {
+            this.setState({
+                id: this.props.match.params.id || -1,
+            })
         }
     }
     getEpisode = () => {

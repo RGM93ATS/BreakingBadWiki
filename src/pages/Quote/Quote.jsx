@@ -24,6 +24,16 @@ export class Quote extends React.Component {
         if (prevState.id !== this.state.id) {
             this.getQuote()
         }
+        if (prevProps.location.pathname !== this.props.location.pathname) {
+            this.setState({
+                id: this.props.match.params.id || -1,
+                name: this.props.location.state
+                    ? this.props.location.state.name
+                    : this.props.location.search
+                    ? this.props.location.search
+                    : '',
+            })
+        }
     }
     getQuote = () => {
         this.setState({ loading: true })

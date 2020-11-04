@@ -5,9 +5,6 @@ const API_KILLERS = 'https://www.breakingbadapi.com/api/deaths/'
 const API_KILLERS_COUNT = 'https://www.breakingbadapi.com/api/death-count/'
 const API_KILLER_RANDOM = 'https://www.breakingbadapi.com/api/random-death/'
 
-const CancelToken = axios.CancelToken
-const source = CancelToken.source()
-
 export const getDeaths = () => {
     return new Promise((resolve, reject) => {
         axios
@@ -35,22 +32,15 @@ export const getKillers = (deaths, order) => {
 export const getKillerByName = (name) => {
     return new Promise((resolve, reject) => {
         axios
-            .get(API_KILLERS, {
-                cancelToken: source.token,
-            })
+            .get(API_KILLERS)
             .then((response) => {
                 resolve(
                     _.filter(response.data, (v) => _.includes(v.death, name))
                 )
             })
             .catch((error) => {
-                if (axios.isCancel(error)) {
-                    console.log('Request canceled', error.message)
-                    source.cancel('Operation canceled by the user.')
-                } else {
-                    console.error(error)
-                    reject(new Error('fail'))
-                }
+                console.error(error)
+                reject(new Error('fail'))
             })
     })
 }

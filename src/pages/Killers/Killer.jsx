@@ -27,6 +27,16 @@ export class Killer extends React.Component {
         if (prevState.id !== this.state.id) {
             this.getKiller()
         }
+        if (prevProps.location.pathname !== this.props.location.pathname) {
+            this.setState({
+                id: this.props.match.params.id || -1,
+                name: this.props.location.state
+                    ? this.props.location.state.name
+                    : this.props.location.search
+                    ? this.props.location.search
+                    : '',
+            })
+        }
     }
     getKiller = () => {
         this.setState({ loading: true })

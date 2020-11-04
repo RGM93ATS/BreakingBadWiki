@@ -20,7 +20,7 @@ function sleep(delay = 0) {
 const filter = createFilterOptions()
 
 export const BreakingSearch = (props) => {
-    const { search, setSearch } = props
+    const { search } = props
     const [open, setOpen] = useState(false)
     const [value, setValue] = useState(search.search)
     const [options, setOptions] = useState([])

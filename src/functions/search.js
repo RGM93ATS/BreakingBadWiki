@@ -158,7 +158,9 @@ const setResults = (episodes, characters, killers, quotes) => {
             }
             res.content.map((c) => {
                 newResults.push({ id: c[id], title: c[val], type, search })
+                return true
             })
+            return true
         })
     return newResults
 }

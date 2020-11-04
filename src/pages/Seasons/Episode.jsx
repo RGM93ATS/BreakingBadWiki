@@ -44,6 +44,7 @@ export class Episode extends React.Component {
                             quotes: [...this.state.quotes, newResult],
                         })
                     })
+                    return true
                 })
             })
     }

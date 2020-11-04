@@ -50,6 +50,7 @@ export class Killers extends React.Component {
                         killers: _.orderBy(killers, ['count'], ['desc']),
                     })
                 })
+                return true
             })
 
             this.setState({ deaths: resp, loading: false })

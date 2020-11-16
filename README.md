@@ -2,6 +2,10 @@
 
   Breaking Bad Wiki es un lugar donde podremos consultar información de la serie "Breaking Bad".
 
+# Live Demo
+
+https://bbwiki.netlify.app/
+
 # Arranque del proyecto
 
   El gestor de paquetes utilizado es Yarn.

@@ -41,13 +41,6 @@ export class Character extends React.Component {
         }
     }
 
-    /*componentDidUpdate(prevProps, nextProps) {
-        if (this.props.location.pathname !== nextProps.props.location.pathname){
-         this.props.location.pathname
-         
-        }
-       }*/
-
     getCharacter = () => {
         if (this.state.id !== -1) {
             getCharacterById(this.state.id).then((resp) => {
